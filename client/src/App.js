@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { Route, Routes } from 'react-router-dom'
+// import { useSelector, useDispatch } from "react-redux";
+// import { loginUser, clearUser } from "./Reduser/userSlice";
+import firebase from './firebase.js';
+
 import Home from './pages/Home'
 import List from './components/post/List'
 import Detail from './components/post/Detail'
@@ -12,7 +16,25 @@ import Footer from './components/layout/Footer'
 import Login from './components/user/Login'
 import Join from './components/user/Join'
 
+
+// 로그인 하기
 const App = () => {
+  useEffect(() => {
+    // 올바른 함수 호출 구문으로 수정
+    firebase.auth().onAuthStateChanged((userInfo) => {
+      console.log("userInfo:", userInfo);
+    });
+  }, []);
+
+
+
+  //로그아웃확인
+  useEffect(() => {
+    firebase.auth().signOut();
+  }, []);
+
+
+
   return (
     <>
       <Header />
